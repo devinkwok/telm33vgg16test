@@ -49,7 +49,7 @@ rate2 = [0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0
 from keras.preprocessing.image import ImageDataGenerator
 train_datagen = ImageDataGenerator(rescale=1./255)
 
-train_generator = train_datagen.flow_from_directory('./cifar100/train',
+train_generator = train_datagen.flow_from_directory('./data/cifar100/unpacked/train',
                                                     target_size=(224, 224),
                                                     batch_size=16,
                                                     class_mode='categorical',
@@ -75,7 +75,7 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 
 
 
-test_generator = test_datagen.flow_from_directory('./cifar100/test',
+test_generator = test_datagen.flow_from_directory('./data/cifar100/unpacked/test',
                                                         target_size=(224, 224),
                                                         batch_size=16,
                                                         class_mode='categorical',
@@ -98,7 +98,7 @@ for i in range(8):
                  #validation_data=validation_generator,
                  #validation_steps=124)
     score = net.evaluate_generator(test_generator, steps=16, verbose=1)
-
+    net.save(os.path.join('outputs', 'checkpoint_vgg16_base_' + str(i)))
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
     end = time.time()
@@ -156,6 +156,7 @@ for i in range(20):
                      #validation_data=validation_generator,
                      #validation_steps=124)
 
+    net.save(os.path.join('outputs', 'checkpoint_vgg16_telm33_' + str(i)))
     score = net.evaluate_generator(test_generator, steps=16, verbose=1)
 
     print('Test loss:', score[0])
