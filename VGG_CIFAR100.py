@@ -88,19 +88,19 @@ net.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
 #size = len(testDigitData_Images_Path)
 #net.fit(trainData, train_label, epochs = 1, batch_size = 16)
 
-for i in range(1):
-    net.fit_generator(train_generator,
-                      steps_per_epoch=3125,
-                      epochs=5)
-                 #,
-                 #validation_data=validation_generator,
-                 #validation_steps=124)
-    score = net.evaluate_generator(test_generator, steps=16, verbose=1)
-    net.save(os.path.join('outputs', 'checkpoint_vgg16_base_' + str(i)))
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-    end = time.time()
-    print(end-start)
+# for i in range(1):
+#     net.fit_generator(train_generator,
+#                       steps_per_epoch=3125,
+#                       epochs=5)
+#                  #,
+#                  #validation_data=validation_generator,
+#                  #validation_steps=124)
+#     score = net.evaluate_generator(test_generator, steps=16, verbose=1)
+#     net.save(os.path.join('outputs', 'checkpoint_vgg16_base_' + str(i)))
+#     print('Test loss:', score[0])
+#     print('Test accuracy:', score[1])
+#     end = time.time()
+#     print(end-start)
 
 
 for i in range(1):

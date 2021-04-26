@@ -12,13 +12,13 @@ def make_dir(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def unpack_imgs_to_dir(file, labels):
-    base_path = os.path.join(file, 'unpacked')
+def unpack_imgs_to_dir(basedir, file, labels):
+    base_path = os.path.join(basedir, 'unpacked', file)
     make_dir(base_path)
     for l in labels:
         make_dir(os.path.join(base_path, l.decode('UTF-8')))
 
-    dict = unpickle(file)
+    dict = unpickle(os.path.join(basedir, file))
     print(dict.keys())
     names = dict[b'filenames']
     data = dict[b'data']
@@ -31,5 +31,5 @@ def unpack_imgs_to_dir(file, labels):
 root_dir = os.path.join('data', 'cifar100')
 labels = unpickle(os.path.join(root_dir, 'meta'))[b'fine_label_names']
 print(labels)
-unpack_imgs_to_dir(os.path.join(root_dir, 'test'), labels)
-unpack_imgs_to_dir(os.path.join(root_dir, 'train'), labels)
+unpack_imgs_to_dir(root_dir, 'test', labels)
+unpack_imgs_to_dir(root_dir, 'train', labels)
