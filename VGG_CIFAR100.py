@@ -4,12 +4,14 @@ import os
 import random
 import cv2
 import math
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 
-import keras
-from keras.models import Model
-from keras.applications.vgg16 import VGG16
-from keras.layers import Dense, Activation, Dropout, Flatten,Input
+import tensorflow.keras
+from tensorflow.keras import optimizers
+from tensorflow.keras.models import Model
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.layers import Dense, Activation, Dropout, Flatten,Input
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 import TELM33_new
 
@@ -38,7 +40,6 @@ net = Model(inputs=net.input, outputs=x, name='model')
 net.summary()
 
 
-from keras import optimizers
 
 rate = [0.1, 0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.05,0.5,0.5,0.5]
 rate2 = [0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.00001, 0.00001, 0.00001, 0.00001, 0.00001]
@@ -46,7 +47,6 @@ rate2 = [0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0
 #sgd = optimizers.SGD(lr=0.001, decay=0.1)
 #net.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
 
-from keras.preprocessing.image import ImageDataGenerator
 train_datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = train_datagen.flow_from_directory('./data/cifar100/unpacked/train',
@@ -82,15 +82,13 @@ test_generator = test_datagen.flow_from_directory('./data/cifar100/unpacked/test
                                                         shuffle=False)
 
 
-from keras import optimizers
-
 sgd = optimizers.SGD(lr=0.001)#, decay=0.1)
 net.compile(loss='categorical_crossentropy',optimizer=sgd,metrics=['accuracy'])
 #net.compile(optimizer='sgd',loss = 'categorical_crossentropy', metrics=['acc','mse'])
 #size = len(testDigitData_Images_Path)
 #net.fit(trainData, train_label, epochs = 1, batch_size = 16)
 
-for i in range(8):
+for i in range(1):
     net.fit_generator(train_generator,
                       steps_per_epoch=3125,
                       epochs=5)
@@ -105,7 +103,7 @@ for i in range(8):
     print(end-start)
 
 
-for i in range(20):
+for i in range(1):
 
     print(i)
     sgd = optimizers.SGD(lr=rate2[i])#, decay=0.1)

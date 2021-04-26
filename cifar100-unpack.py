@@ -13,7 +13,7 @@ def make_dir(path):
         os.makedirs(path)
 
 def unpack_imgs_to_dir(file, labels):
-    base_path = os.path.join('unpacked', file)
+    base_path = os.path.join(file, 'unpacked')
     make_dir(base_path)
     for l in labels:
         make_dir(os.path.join(base_path, l.decode('UTF-8')))
